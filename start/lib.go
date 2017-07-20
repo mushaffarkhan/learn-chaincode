@@ -28,13 +28,13 @@ import (
 // ============================================================================================================================
 // Get Marble - get a marble asset from ledger
 // ============================================================================================================================
-func get_evnet(stub shim.ChaincodeStubInterface, id string) (Marble, error) {
+func get_evnet(stub shim.ChaincodeStubInterface, id string) (Event, error) {
     var event Event 
-    marbleAsBytes, err := stub.GetState(id)                  //getState retreives a key/value from the ledger
+    eventAsBytes, err := stub.GetState(id)                  //getState retreives a key/value from the ledger
     if err != nil {                                          //this seems to always succeed, even if key didn't exist
         return event, errors.New("Failed to find marble - " + id)
     }
-    json.Unmarshal(marbleAsBytes, &event)                   //un stringify it aka JSON.parse()
+    json.Unmarshal(eventAsBytes, &event)                   //un stringify it aka JSON.parse()
 
     if event.Id != id {                                     //test if marble is actually here or just nil
         return event, errors.New("Event does not exist - " + id)
